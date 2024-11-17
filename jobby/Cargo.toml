@@ -1,0 +1,36 @@
+[package]
+name = "jobby"
+version.workspace = true
+edition = "2021"
+authors = ["Hasnain Lakhani <m.hasnain.lakhani@gmail.com>"]
+categories = ["web-programming"]
+description = "Job queue for rocket applications"
+keywords = ["rocket"]
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/mhlakhani/jobby"
+
+[dependencies]
+async-trait.workspace = true
+anyhow.workspace = true
+bytes.workspace = true
+chrono.workspace = true
+futures.workspace = true
+futures-core.workspace = true
+humantime.workspace = true
+tokio.workspace = true
+reqwest.workspace = true
+rocket.workspace = true
+rocket_sqlite_rw_pool.workspace = true
+rusqlite.workspace = true
+serde.workspace = true
+serde_derive.workspace = true
+serde_json.workspace = true
+serde_repr.workspace = true
+strum_macros.workspace = true
+inventory.workspace = true
+itertools.workspace = true
+thiserror.workspace = true
+url.workspace = true
+zstd.workspace = true
+# jobby_derive = { path = "../jobby_derive" } # TODO: MOVE TO GITHUB
+jobby_derive = "0.0.1-alpha1"

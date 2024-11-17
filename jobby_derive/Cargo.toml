@@ -1,0 +1,18 @@
+[package]
+name = "jobby_derive"
+version.workspace = true
+edition = "2021"
+authors = ["Hasnain Lakhani <m.hasnain.lakhani@gmail.com>"]
+categories = ["web-programming"]
+description = "Job queue for rocket applications"
+keywords = ["rocket"]
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/mhlakhani/jobby"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+proc-macro2.workspace = true
+quote.workspace = true
+syn.workspace = true

@@ -1,0 +1,38 @@
+[workspace]
+
+resolver = "2"
+
+members = [
+    "jobby_derive",
+    "jobby",
+]
+
+[workspace.package]
+version = "0.0.1-alpha1"
+
+[workspace.dependencies]
+async-trait = "0.1"
+anyhow = "1.0"
+bytes = "1.1"
+chrono = { version = "0.4", features = ["serde"] }
+futures = "0.3"
+futures-core = "0.3"
+humantime = "2.1"
+tokio = { version = "1", features = ["full"] }
+proc-macro2 = "1.0"
+quote = "1.0"
+reqwest = "0.11"
+rocket = { version = "0.5.0", features = [ "json", "secrets", "tls"] }
+rocket_sqlite_rw_pool = "0.0.1-alpha1"
+rusqlite = { version = "0.28.0", features = ["bundled", "chrono", "modern_sqlite", "functions"] }
+serde = "1.0"
+serde_derive = "1.0"
+serde_json = "1.0"
+serde_repr = "0.1"
+strum_macros = "0.24"
+syn = {version = "1.0", features = ["full", "extra-traits", "printing"]}
+inventory = "0.3"
+itertools = "0.10"
+thiserror = "1.0"
+url = "2.2"
+zstd = "0.11"
