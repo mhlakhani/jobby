@@ -748,6 +748,10 @@ impl<'a> JobbyAdminHelper<'a> {
         }
     }
 
+    pub async fn retry_all_failed_jobs_of_type(&self, job_type: &JobTypeMetadata) -> Result<()> {
+        self.store.retry_all_failed_jobs_of_type(job_type.into()).await
+    }
+
     pub async fn expire_job(
         &self,
         job_type: &JobTypeMetadata,
@@ -755,6 +759,12 @@ impl<'a> JobbyAdminHelper<'a> {
         expiry: Duration,
     ) -> Result<()> {
         self.store.expire_job(job_type.into(), job_id, expiry).await
+    }
+
+    pub async fn expire_all_failed_jobs_of_type(&self, job_type: &JobTypeMetadata) -> Result<()> {
+        self.store
+            .expire_all_failed_jobs_of_type(job_type.into(), Duration::from_secs(1))
+            .await
     }
 
     pub async fn unexpire_job(&self, job_type: &JobTypeMetadata, job_id: JobId) -> Result<()> {

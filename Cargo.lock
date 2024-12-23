@@ -1072,7 +1072,7 @@ checksum = "49f1f14873335454500d59611f1cf4a4b0f786f9ac11f4312a78e4cf2566695b"
 
 [[package]]
 name = "jobby"
-version = "0.0.1-alpha1"
+version = "0.0.1-alpha2"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -1083,7 +1083,7 @@ dependencies = [
  "humantime",
  "inventory",
  "itertools 0.10.5",
- "jobby_derive 0.0.1-alpha1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "jobby_derive",
  "reqwest",
  "rocket",
  "rocket_sqlite_rw_pool",
@@ -1101,18 +1101,7 @@ dependencies = [
 
 [[package]]
 name = "jobby_derive"
-version = "0.0.1-alpha1"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 1.0.109",
-]
-
-[[package]]
-name = "jobby_derive"
-version = "0.0.1-alpha1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "461092e2920be3fba42cbdc6fec0013441b3fc161f003e3ea95fb216c4eeaf89"
+version = "0.0.1-alpha2"
 dependencies = [
  "proc-macro2",
  "quote",

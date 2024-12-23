@@ -978,6 +978,35 @@ WHERE status = ?",
         Ok(())
     }
 
+    async fn retry_all_failed_jobs_of_type(
+        &self,
+        job_type: UnnamespacedJobType,
+    ) -> Result<()> {
+        self
+            .0
+            .connect_and_write(
+                WriteAuthorization::IPromiseThisIsABackgroundJobNotTiedToARequest,
+                move |transaction| -> Result<()> {
+                    execute_with_params(
+                        r"
+UPDATE jobby_jobs
+SET status = ?
+WHERE job_type = ?
+AND status = ?
+;",
+                        &transaction,
+                        &(JobStatus::Queued, job_type.id(), JobStatus::Failed),
+                    )
+                    .map_err(Error::JobBackfilling)?;
+                    transaction.commit().map_err(Error::JobBackfilling)?;
+                    Ok(())
+                },
+            )
+            .await
+            .map_err(Error::ConnectionFetching)??;
+        Ok(())
+    }
+
     async fn expire_jobs(&self) -> Result<()> {
         let now = Self::now();
         self.0
@@ -1031,6 +1060,36 @@ AND id = ?
 ;",
                         &transaction,
                         &(expires_at, job_type.id(), job_id),
+                    )
+                    .map_err(Error::Expiry)?;
+                    transaction.commit().map_err(Error::Expiry)?;
+                    Ok(())
+                },
+            )
+            .await
+            .map_err(Error::ConnectionFetching)??;
+        Ok(())
+    }
+
+    async fn expire_all_failed_jobs_of_type(
+        &self,
+        job_type: UnnamespacedJobType,
+        duration: Duration,
+    ) -> Result<()> {
+        let expires_at = Self::now() + (duration.as_millis() as i64);
+        self.0
+            .connect_and_write(
+                WriteAuthorization::IPromiseThisIsABackgroundJobNotTiedToARequest,
+                move |transaction| -> Result<()> {
+                    execute_with_params(
+                        r"
+UPDATE jobby_jobs
+SET expires_at = ?
+WHERE job_type = ?
+AND status = ?
+;",
+                        &transaction,
+                        &(expires_at, job_type.id(), JobStatus::Failed),
                     )
                     .map_err(Error::Expiry)?;
                     transaction.commit().map_err(Error::Expiry)?;

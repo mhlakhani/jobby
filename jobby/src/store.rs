@@ -71,6 +71,8 @@ pub trait JobbyStore {
 
     async fn backfill_jobs(&self, jobs: Vec<BackfillableJob>) -> Result<()>;
 
+    async fn retry_all_failed_jobs_of_type(&self, job_type: UnnamespacedJobType) -> Result<()>;
+
     async fn expire_jobs(&self) -> Result<()>;
 
     async fn expire_job(
@@ -79,6 +81,9 @@ pub trait JobbyStore {
         job_id: JobId,
         duration: Duration,
     ) -> Result<()>;
+
+    async fn expire_all_failed_jobs_of_type(&self, job_type: UnnamespacedJobType, duration: Duration) -> Result<()>;
+
     async fn unexpire_job(&self, job_type: UnnamespacedJobType, job_id: JobId) -> Result<()>;
 
     // if ID is set, only return metrics for that ID

@@ -32,5 +32,5 @@ itertools.workspace = true
 thiserror.workspace = true
 url.workspace = true
 zstd.workspace = true
-# jobby_derive = { path = "../jobby_derive" } # TODO: MOVE TO GITHUB
-jobby_derive = "0.0.1-alpha1"
+# jobby_derive = { path = "../jobby_derive" }
+jobby_derive = "0.0.1-alpha2"
